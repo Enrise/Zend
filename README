@@ -1,0 +1,19 @@
+This branch contains script(s) and info on how to retrieve a version from the
+ZF(1) svn repositories.
+
+Latest stable release (version) can be determined by accessing this url:
+http://framework.zend.com/api/zf-version
+
+Then one can do (in branch master):
+rm *
+svn export http://framework.zend.com/svn/framework/standard/tags/release-<version>/library/Zend/ .
+
+Then you can run the strip.sh file, and tag it. Mag sure that the contents of library/Zend/ are
+in the rootdir of the master branch, and that there's not just a single directory named Zend.
+
+Naming convention for tags is: release-<version>
+	meaning that when version = 1.11.6, the corresponding tag name would be release-1.11.6
+
+
+~~~~Freeaqingme
+dolfschimmel@gmail.com
