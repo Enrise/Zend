@@ -5,15 +5,21 @@ Latest stable release (version) can be determined by accessing this url:
 http://framework.zend.com/api/zf-version
 
 Then one can do (in branch master):
-rm *
-svn export http://framework.zend.com/svn/framework/standard/tags/release-<version>/library/Zend/ .
+rm * -rf
+svn checkout http://framework.zend.com/svn/framework/standard/tags/release-<version>/library/Zend/ .
+find ./ -name ".svn" | xargs rm -Rf
+find . -name '*.php' -not -wholename '*/Loader/Autoloader.php' -print0 | xargs -0 sed -E -i 's/(require_once)/\/\/ \1/g'
+find . -name '*.php' -print0 | xargs -0 sed -i 's/[ ]*$//'
+sed -E -i 's/\/\/ (require_once \$path)/\1/g' Application.php
+git add * --force
+git commit -am "Upping version to ..."
+git push origin master
+git tag 1.11.7
 
-Then you can run the strip.sh file, and tag it. Mag sure that the contents of library/Zend/ are
-in the rootdir of the master branch, and that there's not just a single directory named Zend.
+Make sure that the contents of library/Zend/ are in the rootdir of the master branch, and that there's not just a single directory named Zend. We use svn checkout because svn export some times neglets to export some files (at least it does so on ~Freeaqingme's faulty laptop (blame HP)).
 
 Naming convention for tags is: release-<version>
 	meaning that when version = 1.11.6, the corresponding tag name would be release-1.11.6
-
 
 ~~~~Freeaqingme
 dolfschimmel@gmail.com
