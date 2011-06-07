@@ -15,6 +15,7 @@ git add * --force
 git commit -am "Upping version to ..."
 git push origin master
 git tag 1.11.7
+git push origin 1.11.7
 
 Make sure that the contents of library/Zend/ are in the rootdir of the master branch, and that there's not just a single directory named Zend. We use svn checkout because svn export some times neglets to export some files (at least it does so on ~Freeaqingme's faulty laptop (blame HP)).
 
