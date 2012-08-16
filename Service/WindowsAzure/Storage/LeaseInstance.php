@@ -15,15 +15,10 @@
  * @category   Zend
  * @package    Zend_Service_WindowsAzure
  * @subpackage Storage
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
  */
-
-/**
- * @see Zend_Service_WindowsAzure_Exception
- */
-// require_once 'Zend/Service/WindowsAzure/Exception.php';
 
 /**
  * @see Zend_Service_WindowsAzure_Storage_StorageEntityAbstract
@@ -34,7 +29,7 @@
  * @category   Zend
  * @package    Zend_Service_WindowsAzure
  * @subpackage Storage
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  *
  * @property string  $Container       Container name
@@ -43,7 +38,7 @@
  * @property string  $LeaseTime       Time remaining in the lease period, in seconds. This header is returned only for a successful request to break the lease. It provides an approximation as to when the lease period will expire.
  */
 class Zend_Service_WindowsAzure_Storage_LeaseInstance
-    extends Zend_Service_WindowsAzure_Storage_StorageEntityAbstract
+	extends Zend_Service_WindowsAzure_Storage_StorageEntityAbstract
 {
     /**
      * Constructor
@@ -58,7 +53,7 @@ class Zend_Service_WindowsAzure_Storage_LeaseInstance
         $this->_data = array(
             'container'        => $containerName,
             'name'             => $name,
-            'leaseid'          => $leaseId,
+        	'leaseid'          => $leaseId,
             'leasetime'        => $leaseTime
         );
     }

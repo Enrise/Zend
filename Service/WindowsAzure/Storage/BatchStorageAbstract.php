@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Service_WindowsAzure
  * @subpackage Storage
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: BatchStorageAbstract.php 23775 2011-03-01 17:25:24Z ralph $
+ * @version    $Id: BatchStorageAbstract.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
 /**
@@ -26,40 +26,15 @@
 // require_once 'Zend/Service/WindowsAzure/Storage.php';
 
 /**
- * @see Zend_Service_WindowsAzure_Credentials_CredentialsAbstract
- */
-// require_once 'Zend/Service/WindowsAzure/Credentials/CredentialsAbstract.php';
-
-/**
- * @see Zend_Service_WindowsAzure_Exception
- */
-// require_once 'Zend/Service/WindowsAzure/Exception.php';
-
-/**
- * @see Zend_Service_WindowsAzure_Storage_Batch
- */
-// require_once 'Zend/Service/WindowsAzure/Storage/Batch.php';
-
-/**
- * @see Zend_Http_Client
- */
-// require_once 'Zend/Http/Client.php';
-
-/**
- * @see Zend_Http_Response
- */
-// require_once 'Zend/Http/Response.php';
-
-/**
  * @category   Zend
  * @package    Zend_Service_WindowsAzure
  * @subpackage Storage
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Service_WindowsAzure_Storage_BatchStorageAbstract
     extends Zend_Service_WindowsAzure_Storage
-{
+{	
     /**
      * Current batch
      *
@@ -75,7 +50,8 @@ abstract class Zend_Service_WindowsAzure_Storage_BatchStorageAbstract
      */
     public function setCurrentBatch(Zend_Service_WindowsAzure_Storage_Batch $batch = null)
     {
-        if ($batch !== null && $this->isInBatch()) {
+        if (!is_null($batch) && $this->isInBatch()) {
+			// require_once 'Zend/Service/WindowsAzure/Exception.php';
             throw new Zend_Service_WindowsAzure_Exception('Only one batch can be active at a time.');
         }
         $this->_currentBatch = $batch;
@@ -98,7 +74,7 @@ abstract class Zend_Service_WindowsAzure_Storage_BatchStorageAbstract
      */
     public function isInBatch()
     {
-        return $this->_currentBatch !== null;
+        return !is_null($this->_currentBatch);
     }
 
     /**
@@ -109,6 +85,7 @@ abstract class Zend_Service_WindowsAzure_Storage_BatchStorageAbstract
      */
     public function startBatch()
     {
+		// require_once 'Zend/Service/WindowsAzure/Storage/Batch.php';
         return new Zend_Service_WindowsAzure_Storage_Batch($this, $this->getBaseUrl());
     }
 	
@@ -141,31 +118,31 @@ abstract class Zend_Service_WindowsAzure_Storage_BatchStorageAbstract
 		// Add content-type header
 		$headers['Content-Type'] = 'multipart/mixed; boundary=' . $batchBoundary;
 
-        // Set path and query string
-        $path           = '/$batch';
-        $queryString    = '';
-
-        // Set verb
-        $httpVerb = Zend_Http_Client::POST;
-
-        // Generate raw data
-        $rawData = '';
-
-        // Single select?
-        if ($isSingleSelect) {
-            $operation = $operations[0];
-            $rawData .= '--' . $batchBoundary . "\n";
+		// Set path and query string
+		$path           = '/$batch';
+		$queryString    = '';
+		
+		// Set verb
+		$httpVerb = Zend_Http_Client::POST;
+		
+		// Generate raw data
+    	$rawData = '';
+    		
+		// Single select?
+		if ($isSingleSelect) {
+		    $operation = $operations[0];
+		    $rawData .= '--' . $batchBoundary . "\n";
             $rawData .= 'Content-Type: application/http' . "\n";
             $rawData .= 'Content-Transfer-Encoding: binary' . "\n\n";
             $rawData .= $operation;
             $rawData .= '--' . $batchBoundary . '--';
-        } else {
-            $rawData .= '--' . $batchBoundary . "\n";
-            $rawData .= 'Content-Type: multipart/mixed; boundary=' . $changesetBoundary . "\n\n";
-
-                // Add operations
-                foreach ($operations as $operation)
-                {
+		} else {
+    		$rawData .= '--' . $batchBoundary . "\n";
+    		$rawData .= 'Content-Type: multipart/mixed; boundary=' . $changesetBoundary . "\n\n";
+    		
+        		// Add operations
+        		foreach ($operations as $operation)
+        		{
                     $rawData .= '--' . $changesetBoundary . "\n";
                 	$rawData .= 'Content-Type: application/http' . "\n";
                 	$rawData .= 'Content-Transfer-Encoding: binary' . "\n\n";
@@ -176,22 +153,22 @@ abstract class Zend_Service_WindowsAzure_Storage_BatchStorageAbstract
     		$rawData .= '--' . $batchBoundary . '--';
 		}
 
-        // Generate URL and sign request
-        $requestUrl     = $this->_credentials->signRequestUrl($this->getBaseUrl() . $path . $queryString, $resourceType, $requiredPermission);
-        $requestHeaders = $this->_credentials->signRequestHeaders($httpVerb, $path, $queryString, $headers, $forTableStorage, $resourceType, $requiredPermission);
+		// Generate URL and sign request
+		$requestUrl     = $this->_credentials->signRequestUrl($this->getBaseUrl() . $path . $queryString, $resourceType, $requiredPermission);
+		$requestHeaders = $this->_credentials->signRequestHeaders($httpVerb, $path, $queryString, $headers, $forTableStorage, $resourceType, $requiredPermission);
 
-        // Prepare request
-        $this->_httpClientChannel->resetParameters(true);
-        $this->_httpClientChannel->setUri($requestUrl);
-        $this->_httpClientChannel->setHeaders($requestHeaders);
-        $this->_httpClientChannel->setRawData($rawData);
+		// Prepare request
+		$this->_httpClientChannel->resetParameters(true);
+		$this->_httpClientChannel->setUri($requestUrl);
+		$this->_httpClientChannel->setHeaders($requestHeaders);
+		$this->_httpClientChannel->setRawData($rawData);
+		
+		// Execute request
+		$response = $this->_retryPolicy->execute(
+		    array($this->_httpClientChannel, 'request'),
+		    array($httpVerb)
+		);
 
-        // Execute request
-        $response = $this->_retryPolicy->execute(
-            array($this->_httpClientChannel, 'request'),
-            array($httpVerb)
-        );
-
-        return $response;
-    }
+		return $response;
+	}
 }
