@@ -7,10 +7,10 @@
 	},
     "autoload": {
         "psr-0": {
-            "Zend": ""
+            "Zend": "lib"
         }
     },
     "include-path": [
-		""
+		"lib"
 	]
 }
