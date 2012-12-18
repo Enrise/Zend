@@ -200,6 +200,8 @@ class Zend_Oauth_Client extends Zend_Http_Client
             $this->setRequestMethod(self::DELETE);
         }   elseif($method == self::HEAD) {
             $this->setRequestMethod(self::HEAD);
+        } elseif($method == self::OPTIONS) {
+            $this->setRequestMethod(self::OPTIONS);
         }
         return parent::setMethod($method);
     }
@@ -243,6 +245,7 @@ class Zend_Oauth_Client extends Zend_Http_Client
                 $this->_getSignableParametersAsQueryString(),
                 $this->getRealm()
             );
+
             $this->setHeaders('Authorization', $oauthHeaderValue);
         } elseif ($requestScheme == Zend_Oauth::REQUEST_SCHEME_POSTBODY) {
             if ($requestMethod == self::GET) {
@@ -253,6 +256,7 @@ class Zend_Oauth_Client extends Zend_Http_Client
                     . ' is set to GET'
                 );
             }
+
             $raw = $this->getToken()->toQueryString(
                 $this->getUri(true),
                 $this->_config,
