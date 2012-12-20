@@ -382,6 +382,8 @@ class Zend_Http_Client_Adapter_Curl implements Zend_Http_Client_Adapter_Interfac
          */
         if ($method == Zend_Http_Client::POST) {
             curl_setopt($this->_curl, CURLOPT_POSTFIELDS, $body);
+        } elseif ($method == Zend_Http_Client::OPTIONS) {
+            curl_setopt($this->_curl, CURLOPT_POSTFIELDS, $body);
         } elseif ($curlMethod == CURLOPT_PUT) {
             // this covers a PUT by file-handle:
             // Make the setting of this options explicit (rather than setting it through the loop following a bit lower)
