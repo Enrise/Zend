@@ -1,0 +1,1 @@
+Zend Framework 1 library without require_once statements
