@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Soap
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Wsdl.php 24602 2012-01-12 22:10:13Z ralph $
+ * @version    $Id: Wsdl.php 23775 2011-03-01 17:25:24Z ralph $
  */
 
 /**
@@ -543,24 +543,28 @@ class Zend_Soap_Wsdl
             case 'string':
             case 'str':
                 return 'xsd:string';
-            case 'long':
-                return 'xsd:long';
+                break;
             case 'int':
             case 'integer':
                 return 'xsd:int';
+                break;
             case 'float':
-                return 'xsd:float';
             case 'double':
-                return 'xsd:double';
+                return 'xsd:float';
+                break;
             case 'boolean':
             case 'bool':
                 return 'xsd:boolean';
+                break;
             case 'array':
                 return 'soap-enc:Array';
+                break;
             case 'object':
                 return 'xsd:struct';
+                break;
             case 'mixed':
                 return 'xsd:anyType';
+                break;
             case 'void':
                 return '';
             default:

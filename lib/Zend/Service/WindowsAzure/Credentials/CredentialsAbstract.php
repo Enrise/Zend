@@ -14,40 +14,49 @@
  *
  * @category   Zend
  * @package    Zend_Service_WindowsAzure
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: CredentialsAbstract.php 24593 2012-01-05 20:35:02Z matthew $
+ * @version    $Id: CredentialsAbstract.php 23775 2011-03-01 17:25:24Z ralph $
  */
 
+/**
+ * @see Zend_Http_Client
+ */
+// require_once 'Zend/Http/Client.php';
+
+/**
+ * @see Zend_Service_WindowsAzure_Credentials_Exception
+ */
+// require_once 'Zend/Service/WindowsAzure/Credentials/Exception.php';
 
 /**
  * @category   Zend
  * @package    Zend_Service_WindowsAzure
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Service_WindowsAzure_Credentials_CredentialsAbstract
 {
-	/**
-	 * Development storage account and key
-	 */
-	const DEVSTORE_ACCOUNT       = "devstoreaccount1";
-	const DEVSTORE_KEY           = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==";
-	
-	/**
-	 * HTTP header prefixes
-	 */
-	const PREFIX_PROPERTIES      = "x-ms-prop-";
-	const PREFIX_METADATA        = "x-ms-meta-";
-	const PREFIX_STORAGE_HEADER  = "x-ms-";
-	
-	/**
-	 * Permissions
-	 */
-	const PERMISSION_READ        = "r";
-	const PERMISSION_WRITE       = "w";
-	const PERMISSION_DELETE      = "d";
-	const PERMISSION_LIST        = "l";
+    /**
+     * Development storage account and key
+     */
+    const DEVSTORE_ACCOUNT       = "devstoreaccount1";
+    const DEVSTORE_KEY           = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==";
+
+    /**
+     * HTTP header prefixes
+     */
+    const PREFIX_PROPERTIES      = "x-ms-prop-";
+    const PREFIX_METADATA        = "x-ms-meta-";
+    const PREFIX_STORAGE_HEADER  = "x-ms-";
+
+    /**
+     * Permissions
+     */
+    const PERMISSION_READ        = "r";
+    const PERMISSION_WRITE       = "w";
+    const PERMISSION_DELETE      = "d";
+    const PERMISSION_LIST        = "l";
 
 	/**
 	 * Account name for Windows Azure

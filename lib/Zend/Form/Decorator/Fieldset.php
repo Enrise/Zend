@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Decorator
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -30,9 +30,9 @@
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Decorator
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Fieldset.php 24961 2012-06-15 14:15:47Z adamlundrigan $
+ * @version    $Id: Fieldset.php 23775 2011-03-01 17:25:24Z ralph $
  */
 class Zend_Form_Decorator_Fieldset extends Zend_Form_Decorator_Abstract
 {
@@ -46,7 +46,6 @@ class Zend_Form_Decorator_Fieldset extends Zend_Form_Decorator_Abstract
         'helper',
         'method',
         'name',
-        'accept-charset',
     );
 
     /**
@@ -132,7 +131,7 @@ class Zend_Form_Decorator_Fieldset extends Zend_Form_Decorator_Abstract
         $name    = $element->getFullyQualifiedName();
         $id      = (string)$element->getId();
 
-        if ((!array_key_exists('id', $attribs) || $attribs['id'] == $id) && '' !== $id) {
+        if (!array_key_exists('id', $attribs) && '' !== $id) {
             $attribs['id'] = 'fieldset-' . $id;
         }
 

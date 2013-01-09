@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Paginator
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: DbSelect.php 24754 2012-05-05 02:30:56Z adamlundrigan $
+ * @version    $Id: DbSelect.php 23855 2011-04-10 19:03:02Z ramon $
  */
 
 /**
@@ -37,7 +37,7 @@
 /**
  * @category   Zend
  * @package    Zend_Paginator
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Paginator_Adapter_DbSelect implements Zend_Paginator_Adapter_Interface
@@ -71,14 +71,6 @@ class Zend_Paginator_Adapter_DbSelect implements Zend_Paginator_Adapter_Interfac
     protected $_rowCount = null;
 
     /**
-     * Identifies this adapter for caching purposes.  This value will remain constant for
-     * the entire life of this adapter regardless of how many different pages are queried.
-     *
-     * @var string
-     */
-    protected $_cacheIdentifier = null;
-
-    /**
      * Constructor.
      *
      * @param Zend_Db_Select $select The select query
@@ -86,17 +78,6 @@ class Zend_Paginator_Adapter_DbSelect implements Zend_Paginator_Adapter_Interfac
     public function __construct(Zend_Db_Select $select)
     {
         $this->_select = $select;
-        $this->_cacheIdentifier = md5($select->assemble());
-    }
-
-    /**
-     * Returns the cache identifier.
-     *
-     * @return string
-     */
-    public function getCacheIdentifier()
-    {
-        return $this->_cacheIdentifier;
     }
 
     /**
@@ -237,8 +218,7 @@ class Zend_Paginator_Adapter_DbSelect implements Zend_Paginator_Adapter_Interfac
              * than one group, or if the query has a HAVING clause, then take
              * the original query and use it as a subquery os the COUNT query.
              */
-            if (($isDistinct && ((count($columnParts) == 1 && $columnParts[0][1] == Zend_Db_Select::SQL_WILDCARD)
-                 || count($columnParts) > 1)) || count($groupParts) > 1 || !empty($havingParts)) {
+            if (($isDistinct && count($columnParts) > 1) || count($groupParts) > 1 || !empty($havingParts)) {
                 $rowCount->reset(Zend_Db_Select::ORDER);
                 $rowCount = $db
                                ->select()

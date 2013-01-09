@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Auth
  * @subpackage Zend_Auth_Adapter
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Ldap.php 24618 2012-02-03 08:32:06Z sgehrig $
+ * @version    $Id: Ldap.php 23775 2011-03-01 17:25:24Z ralph $
  */
 
 /**
@@ -29,7 +29,7 @@
  * @category   Zend
  * @package    Zend_Auth
  * @subpackage Zend_Auth_Adapter
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Auth_Adapter_Ldap implements Zend_Auth_Adapter_Interface
@@ -371,11 +371,7 @@ class Zend_Auth_Adapter_Ldap implements Zend_Auth_Adapter_Interface
                 } else {
                     $line = $zle->getLine();
                     $messages[] = $zle->getFile() . "($line): " . $zle->getMessage();
-                    $messages[] = preg_replace(
-						'/\b'.preg_quote(substr($password, 0, 15), '/').'\b/',
-						'*****',
-						$zle->getTraceAsString()
-					);
+                    $messages[] = str_replace($password, '*****', $zle->getTraceAsString());
                     $messages[0] = 'An unexpected failure occurred';
                 }
                 $messages[1] = $zle->getMessage();

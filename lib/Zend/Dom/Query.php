@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Dom
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Query.php 24830 2012-05-30 12:40:05Z adamlundrigan $
+ * @version    $Id: Query.php 23775 2011-03-01 17:25:24Z ralph $
  */
 
 /**
@@ -34,7 +34,7 @@
  *
  * @package    Zend_Dom
  * @subpackage Query
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Dom_Query
@@ -124,10 +124,6 @@ class Zend_Dom_Query
         }
         // breaking XML declaration to make syntax highlighting work
         if ('<' . '?xml' == substr(trim($document), 0, 5)) {
-            if (preg_match('/<html[^>]*xmlns="([^"]+)"[^>]*>/i', $document, $matches)) {
-                $this->_xpathNamespaces[] = $matches[1];
-                return $this->setDocumentXhtml($document, $encoding);
-            }
             return $this->setDocumentXml($document, $encoding);
         }
         if (strstr($document, 'DTD XHTML')) {

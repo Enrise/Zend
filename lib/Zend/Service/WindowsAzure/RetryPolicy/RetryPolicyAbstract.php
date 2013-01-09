@@ -15,10 +15,15 @@
  * @category   Zend
  * @package    Zend_Service_WindowsAzure
  * @subpackage RetryPolicy
- * @version    $Id: RetryPolicyAbstract.php 24593 2012-01-05 20:35:02Z matthew $
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: RetryPolicyAbstract.php 23775 2011-03-01 17:25:24Z ralph $
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
+
+/**
+ * @see Zend_Service_WindowsAzure_Exception
+ */
+// require_once 'Zend/Service/WindowsAzure/Exception.php';
 
 /**
  * @see Zend_Service_WindowsAzure_RetryPolicy_NoRetry
@@ -34,7 +39,7 @@
  * @category   Zend
  * @package    Zend_Service_WindowsAzure
  * @subpackage RetryPolicy
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Service_WindowsAzure_RetryPolicy_RetryPolicyAbstract
@@ -67,6 +72,6 @@ abstract class Zend_Service_WindowsAzure_RetryPolicy_RetryPolicyAbstract
      */
     public static function retryN($count = 1, $intervalBetweenRetries = 0)
     {
-	return new Zend_Service_WindowsAzure_RetryPolicy_RetryN($count, $intervalBetweenRetries);
+        return new Zend_Service_WindowsAzure_RetryPolicy_RetryN($count, $intervalBetweenRetries);
     }
 }

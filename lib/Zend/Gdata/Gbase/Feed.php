@@ -16,15 +16,10 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Gbase
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Feed.php 24777 2012-05-08 18:50:23Z adamlundrigan $
+ * @version    $Id: Feed.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
-/**
- * @see Zend_Exception
- */
-// require_once 'Zend/Exception.php';
 
 /**
  * @see Zend_Gdata_Feed
@@ -39,11 +34,18 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Gbase
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_Gbase_Feed extends Zend_Gdata_Feed
 {
+    /**
+     * The classname for the feed.
+     *
+     * @var string
+     */
+    protected $_feedClassName = 'Zend_Gdata_Gbase_Feed';
+
     /**
      * Create a new instance.
      *
@@ -52,10 +54,7 @@ class Zend_Gdata_Gbase_Feed extends Zend_Gdata_Feed
      */
     public function __construct($element = null)
     {
-        throw new Zend_Exception(
-            'Google Base API has been discontinued by Google and was removed'
-            . ' from Zend Framework in 1.12.0.  For more information see: '
-            . 'http://googlemerchantblog.blogspot.ca/2010/12/new-shopping-apis-and-deprecation-of.html'
-        );
+        $this->registerAllNamespaces(Zend_Gdata_Gbase::$namespaces);
+        parent::__construct($element);
     }
 }
