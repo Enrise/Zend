@@ -17,7 +17,7 @@
  * @subpackage Table
  * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Abstract.php 23994 2011-05-04 06:09:42Z ralph $
+ * @version    $Id: Abstract.php 24148 2011-06-21 15:14:00Z yoshida@zend.co.jp $
  */
 
 /**
@@ -744,6 +744,7 @@ abstract class Zend_Db_Table_Abstract
      * Initialize database adapter.
      *
      * @return void
+     * @throws Zend_Db_Table_Exception
      */
     protected function _setupDatabaseAdapter()
     {
@@ -974,6 +975,7 @@ abstract class Zend_Db_Table_Abstract
      *
      * @param  string $key The specific info part to return OPTIONAL
      * @return mixed
+     * @throws Zend_Db_Table_Exception
      */
     public function info($key = null)
     {
