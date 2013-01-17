@@ -1,16 +1,20 @@
 {
     "name": "enrise/zendframework1",
     "description": "Enrise Zend Framework 1",
-	"type": "library",
-	"require": {
-		"php": ">=5.2.4"
-	},
+    "type": "library",
+    "require": {
+        "php": ">=5.2.4"
+    },
+    "include-path": [
+        "lib"
+    ],
     "autoload": {
         "psr-0": {
             "Zend": "lib"
-        }
-    },
-    "include-path": [
-		"lib"
-	]
+        },
+        "classmap": [
+            "lib"
+        ]
+    }
 }
+
